@@ -8,7 +8,14 @@
 
     <ItemGroup>
       <Folder Include="ApiClients\" />
-      <Folder Include="Persistence\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CSharpFunctionalExtensions" Version="3.6.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ChoiceAPI.Core\ChoiceAPI.Core.csproj" />
     </ItemGroup>
 
 </Project>

@@ -7,7 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
+      <PackageReference Include="CSharpFunctionalExtensions" Version="3.6.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ChoiceAPI.Core\ChoiceAPI.Core.csproj" />
+      <ProjectReference Include="..\ChoiceAPI.Infrastructure\ChoiceAPI.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
