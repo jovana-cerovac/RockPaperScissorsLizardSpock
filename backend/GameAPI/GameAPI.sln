@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EB0DCBB6-1CEC-4AF4-ACA4-2CFC1969904A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F02DD11A-83F0-42EE-AFED-2B4B4C2A3C76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameAPI.Api", "GameAPI.Api\GameAPI.Api.csproj", "{4FF79D3C-8EBC-410B-9A21-631C00802614}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameAPI.Core", "GameAPI.Core\GameAPI.Core.csproj", "{F443D4C6-C78C-40EA-BC72-B0C4AACBAE44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameAPI.Infrastructure", "GameAPI.Infrastructure\GameAPI.Infrastructure.csproj", "{BE5D8C9F-BCF2-4187-82E1-405C658E92FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4FF79D3C-8EBC-410B-9A21-631C00802614} = {EB0DCBB6-1CEC-4AF4-ACA4-2CFC1969904A}
+		{F443D4C6-C78C-40EA-BC72-B0C4AACBAE44} = {EB0DCBB6-1CEC-4AF4-ACA4-2CFC1969904A}
+		{BE5D8C9F-BCF2-4187-82E1-405C658E92FF} = {EB0DCBB6-1CEC-4AF4-ACA4-2CFC1969904A}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4FF79D3C-8EBC-410B-9A21-631C00802614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FF79D3C-8EBC-410B-9A21-631C00802614}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FF79D3C-8EBC-410B-9A21-631C00802614}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FF79D3C-8EBC-410B-9A21-631C00802614}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F443D4C6-C78C-40EA-BC72-B0C4AACBAE44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F443D4C6-C78C-40EA-BC72-B0C4AACBAE44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F443D4C6-C78C-40EA-BC72-B0C4AACBAE44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F443D4C6-C78C-40EA-BC72-B0C4AACBAE44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE5D8C9F-BCF2-4187-82E1-405C658E92FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE5D8C9F-BCF2-4187-82E1-405C658E92FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE5D8C9F-BCF2-4187-82E1-405C658E92FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE5D8C9F-BCF2-4187-82E1-405C658E92FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
