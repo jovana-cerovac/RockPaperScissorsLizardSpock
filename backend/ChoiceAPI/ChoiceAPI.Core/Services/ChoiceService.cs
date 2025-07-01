@@ -1,28 +1,28 @@
 using ChoiceAPI.Core.Contracts;
 using ChoiceAPI.Core.Persistence;
+using ChoiceAPI.Core.Services.Abstractions;
 
 namespace ChoiceAPI.Core.Services;
 
-public class ChoiceService : IChoiceService
+public class ChoiceService(IChoiceRepository repository, IRandomNumberService randomNumberService) : IChoiceService
 {
-    // TODO: Change random function!
-    private readonly Random _random = new();
-    private readonly IChoiceRepository _repository;
-
-    public ChoiceService(IChoiceRepository repository)
-    {
-        _repository = repository;
-    }
-
     public IEnumerable<ChoiceResponse> GetAll()
     {
-        return _repository.GetAllChoices().Select(ChoiceResponse.FromDomain);
+        return repository.GetAllChoices().Select(ChoiceResponse.FromDomain);
     }
 
-    public ChoiceResponse GetRandom()
+    public async Task<ChoiceResponse> GetRandomAsync()
     {
-        var choices = _repository.GetAllChoices().ToList();
-        var index = _random.Next(choices.Count);
-        return ChoiceResponse.FromDomain(choices[index]);
+        var randomNumber = await randomNumberService.GetRandomNumberAsync();
+        var totalCountOfChoices = repository.GetTotalCount();
+        var choiceId = EvaluateChoiceId(randomNumber, totalCountOfChoices);
+        var maybeRandomChoice = repository.GetById(choiceId);
+
+        return maybeRandomChoice is not null
+            ? ChoiceResponse.FromDomain(maybeRandomChoice)
+            : throw new Exception(); // TODO: Custom exception and global handling
     }
+
+    private static int EvaluateChoiceId(int randomNumber, int totalCountOfChoices) =>
+        randomNumber % totalCountOfChoices + 1;
 }

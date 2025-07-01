@@ -1,31 +1,30 @@
 using ChoiceAPI.Core.Contracts;
-using ChoiceAPI.Core.Services;
+using ChoiceAPI.Core.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChoiceAPI.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ChoicesController : ControllerBase
+public class ChoicesController(IChoiceService choiceService) : ControllerBase
 {
-    private readonly IChoiceService _choiceService;
-    
-    public ChoicesController(IChoiceService choiceService)
-    {
-        _choiceService = choiceService;
-    }
-
     [HttpGet]
+    [ActionName(nameof(GetAllChoices))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ChoiceResponse>))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public ActionResult<IEnumerable<ChoiceResponse>> GetAllChoices()
     {
-        var choices = _choiceService.GetAll();
+        var choices = choiceService.GetAll();
         return Ok(choices);
     }
 
     [HttpGet("random")]
-    public ActionResult<ChoiceResponse> GetRandomChoice()
+    [ActionName(nameof(GetRandomChoiceAsync))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChoiceResponse))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<ChoiceResponse>> GetRandomChoiceAsync()
     {
-        var choice = _choiceService.GetRandom();
+        var choice = await choiceService.GetRandomAsync();
         return Ok(choice);
     }
 }

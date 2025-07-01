@@ -1,6 +1,5 @@
 using ChoiceAPI.Core.Domain;
 using ChoiceAPI.Core.Persistence;
-using CSharpFunctionalExtensions;
 
 namespace ChoiceAPI.Infrastructure.Persistence;
 
@@ -17,14 +16,7 @@ public class ChoiceRepository : IChoiceRepository
 
     public IEnumerable<Choice> GetAllChoices() => Choices;
 
-    public Maybe<Choice> GetById(int id)
-    {
-        return Choices.FirstOrDefault(choice => choice.Id == id);
-    }
+    public Choice? GetById(int id) => Choices.FirstOrDefault(choice => choice.Id == id);
 
-    public Maybe<Choice> GetByName(string name)
-    {
-        return Choices.FirstOrDefault(choice =>
-            string.Equals(choice.Name, name, StringComparison.OrdinalIgnoreCase));
-    }
+    public int GetTotalCount() => Choices.Count;
 }

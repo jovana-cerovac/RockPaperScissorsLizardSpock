@@ -1,10 +1,10 @@
 using ChoiceAPI.Core.Contracts;
 
-namespace ChoiceAPI.Core.Services;
+namespace ChoiceAPI.Core.Services.Abstractions;
 
 public interface IChoiceService
 {
     IEnumerable<ChoiceResponse> GetAll();
 
-    ChoiceResponse GetRandom();
+    Task<ChoiceResponse> GetRandomAsync();
 }
