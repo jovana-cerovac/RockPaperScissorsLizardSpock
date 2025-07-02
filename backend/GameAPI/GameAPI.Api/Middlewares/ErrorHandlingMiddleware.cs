@@ -1,8 +1,8 @@
 using System.Net;
 using System.Text.Json;
-using ChoiceAPI.Core.Exceptions;
+using GameAPI.Core.Exceptions;
 
-namespace ChoiceAPI.Api.Middlewares;
+namespace GameAPI.Api.Middlewares;
 
 public class ErrorHandlingMiddleware(RequestDelegate next, ILogger<ErrorHandlingMiddleware> logger)
 {

@@ -15,14 +15,7 @@ public class GameController(IGameService gameService) : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> PlayRound([FromBody] PlayRequest request)
     {
-        //TODO: Dodati proveru u servisu => ako ChoiceAPI vrati gresku, onda vratiti bad request
-        // if (request == null || request.Player <= 0)
-        // {
-        //     return BadRequest("Invalid player choice.");
-        // }
-
-        var result = await gameService.PlayRoundAsync(request);
-
-        return Ok(result);
+        var playResponse = await gameService.PlayRoundAsync(request);
+        return Ok(playResponse);
     }
 }

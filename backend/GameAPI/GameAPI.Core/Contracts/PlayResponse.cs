@@ -1,15 +1,8 @@
 namespace GameAPI.Core.Contracts;
 
-public class PlayResponse
+public class PlayResponse(string results, int player, int computer)
 {
-    public string Results { get; }
-    public int Player { get; }
-    public int Computer { get; }
-    
-    public PlayResponse(string results, int player, int computer)
-    {
-        Results = results;
-        Player = player;
-        Computer = computer;
-    }
+    public string Results { get; } = results;
+    public int Player { get; } = player;
+    public int Computer { get; } = computer;
 }

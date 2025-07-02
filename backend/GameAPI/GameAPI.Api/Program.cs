@@ -1,4 +1,5 @@
 using GameAPI.Api;
+using GameAPI.Api.Middlewares;
 using GameAPI.Core;
 using GameAPI.Infrastructure;
 
@@ -16,8 +17,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-app.UseAuthorization();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();
 
 app.Run();

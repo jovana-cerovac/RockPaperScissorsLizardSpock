@@ -9,7 +9,7 @@ public class ChoiceService(IChoiceRepository repository, IRandomNumberService ra
 {
     private const int MinChoiceId = 1;
     private const int MaxChoiceId = 5;
-    
+
     public IEnumerable<ChoiceResponse> GetAll()
     {
         return repository.GetAllChoices().Select(ChoiceResponse.FromDomain);
@@ -31,9 +31,10 @@ public class ChoiceService(IChoiceRepository repository, IRandomNumberService ra
     {
         if (id is < MinChoiceId or > MaxChoiceId)
         {
-            throw new BadRequestException($"Choice ID must be between {MinChoiceId} and {MaxChoiceId}.");
+            throw new BadRequestException(
+                $"Invalid Choice ID {id}. Choice ID must be between {MinChoiceId} and {MaxChoiceId}.");
         }
-        
+
         var choice = repository.GetById(id);
         return choice is not null
             ? ChoiceResponse.FromDomain(choice)
