@@ -35,6 +35,11 @@ public class ErrorHandlingMiddleware(RequestDelegate next, ILogger<ErrorHandling
                 message = exception.Message;
                 break;
 
+            case InvalidApiResponseException:
+                status = HttpStatusCode.BadGateway;
+                message = exception.Message;
+                break;
+
             default:
                 status = HttpStatusCode.InternalServerError;
                 message = "An unexpected error occurred.";

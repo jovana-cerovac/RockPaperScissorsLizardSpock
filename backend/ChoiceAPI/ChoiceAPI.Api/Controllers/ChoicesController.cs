@@ -23,6 +23,7 @@ public class ChoicesController(IChoiceService choiceService) : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChoiceResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status502BadGateway)]
     public async Task<ActionResult<ChoiceResponse>> GetRandomChoiceAsync()
     {
         var choice = await choiceService.GetRandomAsync();

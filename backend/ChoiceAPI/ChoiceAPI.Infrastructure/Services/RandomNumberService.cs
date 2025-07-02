@@ -1,4 +1,5 @@
 using System.Text.Json;
+using ChoiceAPI.Core.Exceptions;
 using ChoiceAPI.Core.Services.Abstractions;
 
 namespace ChoiceAPI.Infrastructure.Services;
@@ -18,7 +19,7 @@ public class RandomNumberService(HttpClient httpClient) : IRandomNumberService
 
         if (result == null || result.RandomNumber < MinRandomNumber || result.RandomNumber > MaxRandomNumber)
         {
-            throw new InvalidOperationException("Invalid response from the random number API.");
+            throw new InvalidApiResponseException("Invalid response from the random number API.");
         }
 
         return result.RandomNumber;

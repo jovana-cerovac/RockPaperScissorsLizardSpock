@@ -1,5 +1,6 @@
 using System.Text.Json;
 using GameAPI.Core.Contracts;
+using GameAPI.Core.Exceptions;
 using GameAPI.Core.Services.Abstractions;
 
 namespace GameAPI.Infrastructure.Services;
@@ -16,7 +17,7 @@ public class ChoicesApiClient(HttpClient httpClient) : IChoicesApiClient
 
         if (result == null)
         {
-            throw new InvalidOperationException("Invalid response from the random number API.");
+            throw new InvalidApiResponseException("Invalid response from the ChoiceAPI.");
         }
 
         return result;
@@ -32,7 +33,7 @@ public class ChoicesApiClient(HttpClient httpClient) : IChoicesApiClient
 
         if (result == null)
         {
-            throw new InvalidOperationException("Invalid response from the random number API.");
+            throw new InvalidApiResponseException("Invalid response from the ChoiceAPI.");
         }
 
         return result;

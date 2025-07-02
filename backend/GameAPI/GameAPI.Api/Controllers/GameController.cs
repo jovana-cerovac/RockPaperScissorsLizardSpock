@@ -13,6 +13,7 @@ public class GameController(IGameService gameService) : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PlayResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status502BadGateway)]
     public async Task<IActionResult> PlayRound([FromBody] PlayRequest request)
     {
         var playResponse = await gameService.PlayRoundAsync(request);
