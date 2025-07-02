@@ -7,4 +7,6 @@ public interface IChoiceService
     IEnumerable<ChoiceResponse> GetAll();
 
     Task<ChoiceResponse> GetRandomAsync();
+
+    ChoiceResponse GetById(int id);
 }

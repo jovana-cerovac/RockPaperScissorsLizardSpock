@@ -21,10 +21,22 @@ public class ChoicesController(IChoiceService choiceService) : ControllerBase
     [HttpGet("choice")]
     [ActionName(nameof(GetRandomChoiceAsync))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChoiceResponse))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<ChoiceResponse>> GetRandomChoiceAsync()
     {
         var choice = await choiceService.GetRandomAsync();
+        return Ok(choice);
+    }
+    
+    [HttpGet("{id}")]
+    [ActionName(nameof(GetRandomChoiceAsync))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChoiceResponse))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public ActionResult<ChoiceResponse> GetChoiceById([FromRoute]int id)
+    {
+        var choice = choiceService.GetById(id);
         return Ok(choice);
     }
 }

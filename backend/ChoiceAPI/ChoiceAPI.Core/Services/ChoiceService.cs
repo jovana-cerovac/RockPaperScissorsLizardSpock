@@ -16,10 +16,18 @@ public class ChoiceService(IChoiceRepository repository, IRandomNumberService ra
         var randomNumber = await randomNumberService.GetRandomNumberAsync();
         var totalCountOfChoices = repository.GetTotalCount();
         var choiceId = EvaluateChoiceId(randomNumber, totalCountOfChoices);
-        var maybeRandomChoice = repository.GetById(choiceId);
+        var randomChoice = repository.GetById(choiceId);
 
-        return maybeRandomChoice is not null
-            ? ChoiceResponse.FromDomain(maybeRandomChoice)
+        return randomChoice is not null
+            ? ChoiceResponse.FromDomain(randomChoice)
+            : throw new Exception(); // TODO: Custom exception and global handling
+    }
+
+    public ChoiceResponse GetById(int id)
+    {
+        var choice = repository.GetById(id);
+        return choice is not null
+            ? ChoiceResponse.FromDomain(choice)
             : throw new Exception(); // TODO: Custom exception and global handling
     }
 
