@@ -8,7 +8,7 @@ namespace ChoiceAPI.Api.Controllers;
 [Route("api/[controller]")]
 public class ChoicesController(IChoiceService choiceService) : ControllerBase
 {
-    [HttpGet]
+    [HttpGet("choices")]
     [ActionName(nameof(GetAllChoices))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ChoiceResponse>))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -18,7 +18,7 @@ public class ChoicesController(IChoiceService choiceService) : ControllerBase
         return Ok(choices);
     }
 
-    [HttpGet("random")]
+    [HttpGet("choice")]
     [ActionName(nameof(GetRandomChoiceAsync))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChoiceResponse))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
