@@ -1,4 +1,5 @@
 using ChoiceAPI.Api;
+using ChoiceAPI.Api.Middlewares;
 using ChoiceAPI.Core;
 using ChoiceAPI.Infrastructure;
 
@@ -16,8 +17,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-app.UseAuthorization();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();
 
 app.Run();

@@ -32,6 +32,7 @@ public class ChoicesController(IChoiceService choiceService) : ControllerBase
     [HttpGet("{id}")]
     [ActionName(nameof(GetRandomChoiceAsync))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChoiceResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public ActionResult<ChoiceResponse> GetChoiceById([FromRoute]int id)
