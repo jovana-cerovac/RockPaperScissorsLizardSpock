@@ -20,7 +20,7 @@ public class PlayController(IPlayService playService) : ControllerBase
     /// A task representing the asynchronous operation. The task result contains
     /// a <see cref="PlayResponse"/> indicating the outcome of the round.
     /// </returns>
-    [HttpPost("play")]
+    [HttpPost]
     [ActionName(nameof(PlayRoundAsync))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PlayResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
