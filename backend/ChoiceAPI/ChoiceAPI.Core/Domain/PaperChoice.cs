@@ -5,6 +5,4 @@ public class PaperChoice : Choice
     public override int Id => 2;
 
     public override string Name => "Paper";
-
-    public override bool BeatsOtherChoice(Choice other) => other is RockChoice or SpockChoice;
 }
