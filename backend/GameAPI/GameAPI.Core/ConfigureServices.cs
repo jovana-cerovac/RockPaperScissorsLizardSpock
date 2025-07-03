@@ -10,6 +10,7 @@ public static class ConfigureServices
     {
         services.AddScoped<IPlayService, PlayService>();
         services.AddScoped<IGameRoundService, GameRoundService>();
+        services.AddScoped<IChoiceValidator, ChoiceValidator>();
         return services;
     }
 }

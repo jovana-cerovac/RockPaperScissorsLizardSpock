@@ -1,7 +1,5 @@
-using GameAPI.Core.Constants;
 using GameAPI.Core.Contracts;
 using GameAPI.Core.Domain;
-using GameAPI.Core.Exceptions;
 using GameAPI.Core.Services.Abstractions;
 
 namespace GameAPI.Core.Services;
@@ -9,11 +7,12 @@ namespace GameAPI.Core.Services;
 public class PlayService(
     IChoicesApiClient choicesApiClient,
     IGameRoundService gameRoundService,
-    IRulesService rulesService) : IPlayService
+    IRulesService rulesService,
+    IChoiceValidator choiceValidator) : IPlayService
 {
     public async Task<PlayResponse> PlayRoundAsync(PlayRequest playRequest)
     {
-        ValidateChoiceId(playRequest.Player);
+        choiceValidator.ValidateChoiceId(playRequest.Player);
 
         var playerChoice = await choicesApiClient.GetChoiceByIdAsync(playRequest.Player);
         var computerChoice = await choicesApiClient.GetRandomChoiceAsync();
@@ -44,18 +43,9 @@ public class PlayService(
         gameRoundService.AddRoundAsync(gameRound);
     }
 
-    private static void ValidateChoiceId(int choiceId)
+    private ChoiceType MapToChoiceType(ChoiceResponse choiceResponse)
     {
-        if (!Enum.IsDefined(typeof(ChoiceType), choiceId))
-        {
-            throw new BadRequestException(
-                $"Invalid Choice ID value {choiceId}. Choice ID must be between {ChoiceConstants.MinChoiceId} and {ChoiceConstants.MaxChoiceId}.");
-        }
-    }
-
-    private static ChoiceType MapToChoiceType(ChoiceResponse choiceResponse)
-    {
-        ValidateChoiceId(choiceResponse.Id);
+        choiceValidator.ValidateChoiceId(choiceResponse.Id);
         return (ChoiceType)choiceResponse.Id;
     }
 }
