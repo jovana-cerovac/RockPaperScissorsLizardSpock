@@ -1,3 +1,4 @@
+using ChoiceAPI.Core.Constants;
 using ChoiceAPI.Core.Contracts;
 using ChoiceAPI.Core.Exceptions;
 using ChoiceAPI.Core.Persistence;
@@ -7,9 +8,6 @@ namespace ChoiceAPI.Core.Services;
 
 public class ChoiceService(IChoiceRepository repository, IRandomNumberService randomNumberService) : IChoiceService
 {
-    private const int MinChoiceId = 1;
-    private const int MaxChoiceId = 5;
-
     public async Task<IEnumerable<ChoiceResponse>> GetAllChoicesAsync()
     {
         var allChoices = await repository.GetAllChoicesAsync();
@@ -30,10 +28,10 @@ public class ChoiceService(IChoiceRepository repository, IRandomNumberService ra
 
     public async Task<ChoiceResponse> GetChoiceByIdAsync(int id)
     {
-        if (id is < MinChoiceId or > MaxChoiceId)
+        if (id is < ChoiceConstants.MinChoiceId or > ChoiceConstants.MaxChoiceId)
         {
             throw new BadRequestException(
-                $"Invalid Choice ID {id}. Choice ID must be between {MinChoiceId} and {MaxChoiceId}.");
+                $"Invalid Choice ID {id}. Choice ID must be between {ChoiceConstants.MinChoiceId} and {ChoiceConstants.MaxChoiceId}.");
         }
 
         var choice = await repository.GetByIdAsync(id);
