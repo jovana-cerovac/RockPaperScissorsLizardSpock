@@ -9,8 +9,11 @@ export const choiceApi = createApi({
   endpoints: (builder) => ({
     getAllChoices: builder.query<Choice[], void>({
       query: () => 'api/choices'
+    }),
+    getRandomChoice: builder.query<Choice, void>({
+      query: () => `api/choices/random-choice`
     })
   })
 });
 
-export const { useGetAllChoicesQuery } = choiceApi;
+export const { useGetAllChoicesQuery, useGetRandomChoiceQuery } = choiceApi;

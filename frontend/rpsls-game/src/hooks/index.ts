@@ -3,3 +3,4 @@ export * from './usePlayGame';
 export * from './useGetLatestGameRounds';
 export * from './useDeleteAllGameRounds';
 export * from './useGetScoreboardRows';
+export * from './useGetRandomChoice';

@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import { useGetChoices, usePlayGame } from '../../hooks';
-import { PlayResponse } from '../../models';
+import { Choice, PlayResponse } from '../../models';
+import {
+  GameResults,
+  RandomChoicePicker,
+  GameChoices,
+  ResultsLoader,
+  ErrorMessage
+} from '..';
 import './GameConsole.css';
 
 export const GameConsole = () => {
@@ -9,9 +16,7 @@ export const GameConsole = () => {
 
   const [result, setResult] = useState<PlayResponse | undefined>(undefined);
   const [error, setError] = useState<string | undefined>(undefined);
-
-  const getChoiceName = (id: number) =>
-    choices.find((choice) => choice.id === id)?.name || 'Unknown';
+  const [isShuffling, setIsShuffling] = useState(false);
 
   const handleSuccessfulGame = (playResponse: PlayResponse) => {
     setResult(playResponse);
@@ -31,55 +36,23 @@ export const GameConsole = () => {
     );
   };
 
-  const getResultClassName = () => {
-    if (!result) return '';
-    switch (result.results.toLowerCase()) {
-      case 'win':
-        return 'result-win';
-      case 'lose':
-        return 'result-lose';
-      case 'tie':
-        return 'result-tie';
-      default:
-        return '';
-    }
-  };
-
   return (
     <div className="game-container">
-      <h2>Choose your fighter</h2>
-
-      <div className="choices">
-        {choices.map((choice) => (
-          <button
-            key={choice.id}
-            onClick={() => handlePlay(choice.id)}
-            disabled={isLoading}
-            className="choice-btn"
-          >
-            {choice.name}
-          </button>
-        ))}
-      </div>
-
-      {isLoading && (
-        <div className="loader" aria-label="Loading game result"></div>
-      )}
-
-      {error && <p className="error">{error}</p>}
-
-      {result && !isLoading && (
-        <div className={`result ${getResultClassName()}`}>
-          <p>
-            <strong>{result.results}</strong>
-          </p>
-          <p>
-            You chose: <strong>{getChoiceName(result.player)}</strong>
-          </p>
-          <p>
-            Computer chose: <strong>{getChoiceName(result.computer)}</strong>
-          </p>
-        </div>
+      <GameChoices
+        choices={choices}
+        disabled={isLoading || isShuffling}
+        onPick={(choice: Choice) => handlePlay(choice.id)}
+      />
+      <RandomChoicePicker
+        choices={choices}
+        onPick={(choice) => handlePlay(choice.id)}
+        isShuffling={isShuffling}
+        setIsShuffling={setIsShuffling}
+      />
+      {isLoading && <ResultsLoader />}
+      {error && <ErrorMessage message={error} />}
+      {result && !isLoading && !isShuffling && (
+        <GameResults result={result} choices={choices} />
       )}
     </div>
   );
