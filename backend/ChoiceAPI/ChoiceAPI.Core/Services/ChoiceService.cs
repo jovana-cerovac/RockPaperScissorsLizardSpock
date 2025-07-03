@@ -10,24 +10,25 @@ public class ChoiceService(IChoiceRepository repository, IRandomNumberService ra
     private const int MinChoiceId = 1;
     private const int MaxChoiceId = 5;
 
-    public IEnumerable<ChoiceResponse> GetAll()
+    public async Task<IEnumerable<ChoiceResponse>> GetAllChoicesAsync()
     {
-        return repository.GetAllChoices().Select(ChoiceResponse.FromDomain);
+        var allChoices = await repository.GetAllChoicesAsync();
+        return allChoices.Select(ChoiceResponse.FromDomain);
     }
 
-    public async Task<ChoiceResponse> GetRandomAsync()
+    public async Task<ChoiceResponse> GetRandomChoiceAsync()
     {
         var randomNumber = await randomNumberService.GetRandomNumberAsync();
-        var totalCountOfChoices = repository.GetTotalCount();
+        var totalCountOfChoices = await repository.GetTotalCountAsync();
         var choiceId = EvaluateChoiceId(randomNumber, totalCountOfChoices);
-        var randomChoice = repository.GetById(choiceId);
+        var randomChoice = await repository.GetByIdAsync(choiceId);
 
         return randomChoice is not null
             ? ChoiceResponse.FromDomain(randomChoice)
             : throw new NotFoundException($"Choice with ID {choiceId} not found.");
     }
 
-    public ChoiceResponse GetById(int id)
+    public async Task<ChoiceResponse> GetChoiceByIdAsync(int id)
     {
         if (id is < MinChoiceId or > MaxChoiceId)
         {
@@ -35,7 +36,7 @@ public class ChoiceService(IChoiceRepository repository, IRandomNumberService ra
                 $"Invalid Choice ID {id}. Choice ID must be between {MinChoiceId} and {MaxChoiceId}.");
         }
 
-        var choice = repository.GetById(id);
+        var choice = await repository.GetByIdAsync(id);
         return choice is not null
             ? ChoiceResponse.FromDomain(choice)
             : throw new NotFoundException($"Choice with ID {id} not found.");

@@ -4,9 +4,9 @@ namespace ChoiceAPI.Core.Persistence;
 
 public interface IChoiceRepository
 {
-    IEnumerable<Choice> GetAllChoices();
+    Task<IEnumerable<Choice>> GetAllChoicesAsync();
 
-    Choice? GetById(int id);
+    Task<Choice?> GetByIdAsync(int id);
 
-    int GetTotalCount();
+    Task<int> GetTotalCountAsync();
 }

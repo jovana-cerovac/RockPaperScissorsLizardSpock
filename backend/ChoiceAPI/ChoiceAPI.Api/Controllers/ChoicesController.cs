@@ -9,12 +9,12 @@ namespace ChoiceAPI.Api.Controllers;
 public class ChoicesController(IChoiceService choiceService) : ControllerBase
 {
     [HttpGet("choices")]
-    [ActionName(nameof(GetAllChoices))]
+    [ActionName(nameof(GetAllChoicesAsync))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ChoiceResponse>))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public ActionResult<IEnumerable<ChoiceResponse>> GetAllChoices()
+    public async Task<ActionResult<IEnumerable<ChoiceResponse>>> GetAllChoicesAsync()
     {
-        var choices = choiceService.GetAll();
+        var choices = await choiceService.GetAllChoicesAsync();
         return Ok(choices);
     }
 
@@ -26,7 +26,7 @@ public class ChoicesController(IChoiceService choiceService) : ControllerBase
     [ProducesResponseType(StatusCodes.Status502BadGateway)]
     public async Task<ActionResult<ChoiceResponse>> GetRandomChoiceAsync()
     {
-        var choice = await choiceService.GetRandomAsync();
+        var choice = await choiceService.GetRandomChoiceAsync();
         return Ok(choice);
     }
     
@@ -36,9 +36,9 @@ public class ChoicesController(IChoiceService choiceService) : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public ActionResult<ChoiceResponse> GetChoiceById([FromRoute]int id)
+    public async Task<ActionResult<ChoiceResponse>> GetChoiceByIdAsync([FromRoute]int id)
     {
-        var choice = choiceService.GetById(id);
+        var choice = await choiceService.GetChoiceByIdAsync(id);
         return Ok(choice);
     }
 }

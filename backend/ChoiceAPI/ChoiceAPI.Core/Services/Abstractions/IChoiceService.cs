@@ -4,9 +4,9 @@ namespace ChoiceAPI.Core.Services.Abstractions;
 
 public interface IChoiceService
 {
-    IEnumerable<ChoiceResponse> GetAll();
+    Task<IEnumerable<ChoiceResponse>> GetAllChoicesAsync();
 
-    Task<ChoiceResponse> GetRandomAsync();
+    Task<ChoiceResponse> GetRandomChoiceAsync();
 
-    ChoiceResponse GetById(int id);
+    Task<ChoiceResponse> GetChoiceByIdAsync(int id);
 }

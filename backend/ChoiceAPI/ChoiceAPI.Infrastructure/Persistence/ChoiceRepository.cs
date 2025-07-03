@@ -14,9 +14,9 @@ public class ChoiceRepository : IChoiceRepository
         new SpockChoice()
     };
 
-    public IEnumerable<Choice> GetAllChoices() => Choices;
+    public Task<IEnumerable<Choice>> GetAllChoicesAsync() => Task.FromResult<IEnumerable<Choice>>(Choices);
 
-    public Choice? GetById(int id) => Choices.FirstOrDefault(choice => choice.Id == id);
+    public Task<Choice?> GetByIdAsync(int id) => Task.FromResult(Choices.FirstOrDefault(choice => choice.Id == id));
 
-    public int GetTotalCount() => Choices.Count;
+    public Task<int> GetTotalCountAsync() => Task.FromResult(Choices.Count);
 }

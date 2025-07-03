@@ -21,7 +21,7 @@ public class ChoiceServiceTests
     }
 
     [Fact]
-    public void GetAll_ReturnsAllChoices()
+    public async Task GetAll_ReturnsAllChoices()
     {
         // Arrange
         var choices = new List<Choice>
@@ -29,10 +29,10 @@ public class ChoiceServiceTests
             new RockChoice(),
             new ScissorsChoice()
         };
-        _choiceRepository.GetAllChoices().Returns(choices);
+        _choiceRepository.GetAllChoicesAsync().Returns(choices);
 
         // Act
-        var result = _choiceService.GetAll().ToList();
+        var result = (await _choiceService.GetAllChoicesAsync()).ToList();
 
         // Assert
         Assert.Equal(choices.Count, result.Count);
