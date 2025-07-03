@@ -2,7 +2,7 @@ using ChoiceAPI.Core.Persistence;
 using ChoiceAPI.Core.Services.Abstractions;
 using ChoiceAPI.Infrastructure.Persistence;
 using ChoiceAPI.Infrastructure.Services;
-using Microsoft.Extensions.Configuration;
+using ChoiceAPI.Infrastructure.Settings;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ChoiceAPI.Infrastructure;
@@ -12,22 +12,18 @@ public static class ConfigureServices
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
         services.AddScoped<IChoiceRepository, ChoiceRepository>();
-        
+
+        services.AddOptions<RandomApiSettings>()
+            .BindConfiguration(RandomApiSettings.SectionName)
+            .Validate(api => !string.IsNullOrWhiteSpace(api.BaseAddress))
+            .ValidateOnStart();
+
         services.AddHttpClient<IRandomNumberService, RandomNumberService>((provider, client) =>
         {
-            var apiSettings = provider.GetRequiredService<IConfiguration>().GetSection("ApiSettings");
-            var baseAddress = apiSettings.GetValue<string>("BaseAddress");
-    
-            if (!string.IsNullOrWhiteSpace(baseAddress))
-            {
-                client.BaseAddress = new Uri(baseAddress);
-            }
-            else
-            {
-                throw new InvalidOperationException("API BaseAddress is not configured.");
-            }
+            var apiSettings = provider.GetRequiredService<RandomApiSettings>();
+            client.BaseAddress = new Uri(apiSettings.BaseAddress);
         });
-        
+
         return services;
     }
 }
