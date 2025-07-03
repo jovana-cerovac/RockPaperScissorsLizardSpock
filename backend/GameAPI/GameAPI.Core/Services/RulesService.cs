@@ -14,8 +14,8 @@ public class RulesService : IRulesService
             return RoundOutcome.Tie;
         }
 
-        return _rules.Any(rule => rule.Winner == playerChoice && rule.Loser == computerChoice) 
-            ? RoundOutcome.Win 
+        return _rules.Any(rule => rule.Winner == playerChoice && rule.Loser == computerChoice)
+            ? RoundOutcome.Win
             : RoundOutcome.Lose;
     }
 }

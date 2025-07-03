@@ -2,12 +2,11 @@ using System.Text.Json.Serialization;
 
 namespace GameAPI.Core.Contracts;
 
-public class ChoiceResponse //TODO: Rename?
+public class ChoiceResponse
 {
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public int Id { get; init; }
 
     [JsonPropertyName("name")]
-
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; init; } = string.Empty;
 }

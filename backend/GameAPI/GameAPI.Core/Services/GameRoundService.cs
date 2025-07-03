@@ -7,15 +7,11 @@ namespace GameAPI.Core.Services;
 
 public class GameRoundService(IGameRoundRepository repository) : IGameRoundService
 {
-    public async Task AddRoundAsync(GameRound gameRound)
-    {
+    public async Task AddRoundAsync(GameRound gameRound) =>
         await repository.AddAsync(gameRound);
-    }
 
-    public async Task RemoveAllRoundsAsync()
-    {
+    public async Task RemoveAllRoundsAsync() =>
         await repository.RemoveAllAsync();
-    }
 
     public async Task<IReadOnlyList<GameRound>> GetLatestRoundsAsync(int count)
     {

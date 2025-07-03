@@ -2,5 +2,5 @@ namespace GameAPI.Core.Contracts;
 
 public class PlayRequest
 {
-    public int Player { get; set; }
+    public int Player { get; init; }
 }
