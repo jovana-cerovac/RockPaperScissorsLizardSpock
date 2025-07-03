@@ -25,7 +25,7 @@ public class ChoicesApiClient(HttpClient httpClient) : IChoicesApiClient
 
     public async Task<ChoiceResponse> GetRandomChoiceAsync()
     {
-        var response = await httpClient.GetAsync("choice");
+        var response = await httpClient.GetAsync("random-choice");
         response.EnsureSuccessStatusCode();
 
         var content = await response.Content.ReadAsStringAsync();

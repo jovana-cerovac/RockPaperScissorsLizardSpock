@@ -1,3 +1,4 @@
+using GameAPI.Core.Constants;
 using GameAPI.Core.Contracts;
 using GameAPI.Core.Domain;
 using GameAPI.Core.Exceptions;
@@ -10,9 +11,6 @@ public class PlayService(
     IGameRoundService gameRoundService,
     IRulesService rulesService) : IPlayService
 {
-    private const int MinChoiceId = 1;
-    private const int MaxChoiceId = 5;
-
     public async Task<PlayResponse> PlayRoundAsync(PlayRequest playRequest)
     {
         ValidateChoiceId(playRequest.Player);
@@ -51,7 +49,7 @@ public class PlayService(
         if (!Enum.IsDefined(typeof(ChoiceType), choiceId))
         {
             throw new BadRequestException(
-                $"Invalid Choice ID value {choiceId}. Choice ID must be between {MinChoiceId} and {MaxChoiceId}.");
+                $"Invalid Choice ID value {choiceId}. Choice ID must be between {ChoiceConstants.MinChoiceId} and {ChoiceConstants.MaxChoiceId}.");
         }
     }
 

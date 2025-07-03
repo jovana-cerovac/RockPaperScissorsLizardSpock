@@ -5,15 +5,15 @@ namespace ChoiceAPI.Infrastructure.Persistence;
 
 public class ChoiceRepository : IChoiceRepository
 {
-    private static readonly List<Choice> Choices =
-    [
+    private static readonly List<Choice> Choices = new()
+    {
         new RockChoice(),
         new PaperChoice(),
         new ScissorsChoice(),
         new LizardChoice(),
         new SpockChoice()
-    ];
-
+    };
+    
     public Task<IEnumerable<Choice>> GetAllChoicesAsync() => Task.FromResult<IEnumerable<Choice>>(Choices);
 
     public Task<Choice?> GetByIdAsync(int id) => Task.FromResult(Choices.FirstOrDefault(choice => choice.Id == id));

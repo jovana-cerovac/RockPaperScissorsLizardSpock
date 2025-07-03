@@ -8,6 +8,18 @@ namespace GameAPI.Api.Controllers;
 [Route("api/[controller]")]
 public class PlayController(IPlayService playService) : ControllerBase
 {
+    /// <summary>
+    /// Plays a single round of the game based on the player's choice.
+    /// </summary>
+    /// <param name="request">The player's choice ID.</param>
+    /// <response code="200">Game round played successfully.</response>
+    /// <response code="400">The request is invalid or contains an unsupported choice ID.</response>
+    /// <response code="500">Something went wrong during the game logic execution.</response>
+    /// <response code="502">Choices service is unavailable while retrieving a choice.</response>
+    /// <returns>
+    /// A task representing the asynchronous operation. The task result contains
+    /// a <see cref="PlayResponse"/> indicating the outcome of the round.
+    /// </returns>
     [HttpPost("play")]
     [ActionName(nameof(PlayRoundAsync))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PlayResponse))]
