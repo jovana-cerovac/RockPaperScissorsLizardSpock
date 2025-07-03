@@ -1,18 +1,9 @@
-import { useEffect } from 'react';
-import { useGetAllChoicesQuery, usePlayRoundMutation } from './services';
+import { GameConsole } from './components/game/GameConsole';
 
 function App() {
-  const { data: choices } = useGetAllChoicesQuery();
-
-  const [playRound] = usePlayRoundMutation();
-
-  useEffect(() => {
-    playRound({ player: 2 });
-  }, []);
-
   return (
     <div>
-      {choices ? choices.map((choice) => choice.name).join(' * ') : <></>}
+      <GameConsole />
     </div>
   );
 }
