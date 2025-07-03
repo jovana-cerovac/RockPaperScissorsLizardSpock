@@ -1,4 +1,7 @@
+using GameAPI.Core.Persistence;
+using GameAPI.Core.Services;
 using GameAPI.Core.Services.Abstractions;
+using GameAPI.Infrastructure.Persistence;
 using GameAPI.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,26 +12,24 @@ public static class ConfigureServices
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
-        services.AddHttpClient<IChoicesApiClient, ChoicesApiClient>((provider, client) =>
-            {
-                var apiSettings = provider.GetRequiredService<IConfiguration>().GetSection("ApiSettings");
-                var baseAddress = apiSettings.GetValue<string>("BaseAddress");
+        services.AddSingleton<IRulesService, RulesService>();
+        
+        services.AddScoped<IGameRoundRepository, GameRoundRepository>();
 
-                if (!string.IsNullOrWhiteSpace(baseAddress))
-                {
-                    client.BaseAddress = new Uri(baseAddress);
-                }
-                else
-                {
-                    throw new InvalidOperationException("API BaseAddress is not configured.");
-                }
-            })
-            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+        services.AddHttpClient<IChoicesApiClient, ChoicesApiClient>((provider, client) =>
+        {
+            var apiSettings = provider.GetRequiredService<IConfiguration>().GetSection("ApiSettings");
+            var baseAddress = apiSettings.GetValue<string>("BaseAddress");
+
+            if (!string.IsNullOrWhiteSpace(baseAddress))
             {
-                // TODO
-                ServerCertificateCustomValidationCallback =
-                    HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-            });
+                client.BaseAddress = new Uri(baseAddress);
+            }
+            else
+            {
+                throw new InvalidOperationException("API BaseAddress is not configured.");
+            }
+        });
 
         return services;
     }

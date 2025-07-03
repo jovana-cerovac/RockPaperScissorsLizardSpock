@@ -6,7 +6,7 @@ namespace GameAPI.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class GameController(IGameService gameService) : ControllerBase
+public class PlayController(IPlayService playService) : ControllerBase
 {
     [HttpPost("play")]
     [ActionName(nameof(PlayRound))]
@@ -16,7 +16,7 @@ public class GameController(IGameService gameService) : ControllerBase
     [ProducesResponseType(StatusCodes.Status502BadGateway)]
     public async Task<IActionResult> PlayRound([FromBody] PlayRequest request)
     {
-        var playResponse = await gameService.PlayRoundAsync(request);
+        var playResponse = await playService.PlayRoundAsync(request);
         return Ok(playResponse);
     }
 }

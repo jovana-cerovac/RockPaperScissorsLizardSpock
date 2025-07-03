@@ -8,7 +8,8 @@ public static class ConfigureServices
 {
     public static IServiceCollection AddCoreServices(this IServiceCollection services)
     {
-        services.AddScoped<IGameService, GameService>();
+        services.AddScoped<IPlayService, PlayService>();
+        services.AddScoped<IGameRoundService, GameRoundService>();
         return services;
     }
 }

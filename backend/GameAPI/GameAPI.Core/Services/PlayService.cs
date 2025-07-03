@@ -5,7 +5,10 @@ using GameAPI.Core.Services.Abstractions;
 
 namespace GameAPI.Core.Services;
 
-public class GameService(IChoicesApiClient choicesApiClient) : IGameService
+public class PlayService(
+    IChoicesApiClient choicesApiClient,
+    IGameRoundService gameRoundService,
+    IRulesService rulesService) : IPlayService
 {
     private const int MinChoiceId = 1;
     private const int MaxChoiceId = 5;
@@ -20,7 +23,9 @@ public class GameService(IChoicesApiClient choicesApiClient) : IGameService
         var playerChoiceType = MapToChoiceType(playerChoice);
         var computerChoiceType = MapToChoiceType(computerChoice);
 
-        var outcome = GameRules.DetermineOutcome(playerChoiceType, computerChoiceType);
+        var outcome = rulesService.DetermineOutcome(playerChoiceType, computerChoiceType);
+
+        AddNewGameRound(outcome, playerChoice, computerChoice);
 
         return new PlayResponse(
             results: outcome.ToString(),
@@ -28,7 +33,19 @@ public class GameService(IChoicesApiClient choicesApiClient) : IGameService
             computer: computerChoice.Id
         );
     }
-    
+
+    private void AddNewGameRound(RoundOutcome outcome, ChoiceResponse playerChoice, ChoiceResponse computerChoice)
+    {
+        var gameRound = new GameRound(
+            Guid.NewGuid(),
+            playerChoice.Id,
+            computerChoice.Id,
+            outcome,
+            DateTimeOffset.UtcNow);
+
+        gameRoundService.AddRoundAsync(gameRound);
+    }
+
     private static void ValidateChoiceId(int choiceId)
     {
         if (!Enum.IsDefined(typeof(ChoiceType), choiceId))
