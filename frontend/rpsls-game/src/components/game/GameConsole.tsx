@@ -47,7 +47,7 @@ export const GameConsole = () => {
 
   return (
     <div className="game-container">
-      <h2>Rock, Paper, Scissors, Lizard, Spock</h2>
+      <h2>Choose your fighter</h2>
 
       <div className="choices">
         {choices.map((choice) => (
@@ -71,13 +71,13 @@ export const GameConsole = () => {
       {result && !isLoading && (
         <div className={`result ${getResultClassName()}`}>
           <p>
+            <strong>{result.results}</strong>
+          </p>
+          <p>
             You chose: <strong>{getChoiceName(result.player)}</strong>
           </p>
           <p>
             Computer chose: <strong>{getChoiceName(result.computer)}</strong>
-          </p>
-          <p>
-            Result: <strong>{result.results}</strong>
           </p>
         </div>
       )}

@@ -7,6 +7,7 @@ public static class ConfigureServices
 {
     public static IServiceCollection AddApiServices(this IServiceCollection services)
     {
+        services.AddRouting(options => options.LowercaseUrls = true);
         services.AddControllers();
         services.AddEndpointsApiExplorer();
 

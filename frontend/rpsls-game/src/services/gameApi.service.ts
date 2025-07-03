@@ -6,22 +6,26 @@ export const gameApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_GAME_API_BASE_URL
   }),
+  tagTypes: ['GameRounds'],
   endpoints: (builder) => ({
     playRound: builder.mutation<PlayResponse, PlayRequest>({
       query: (data) => ({
         url: 'api/play',
         method: 'POST',
         body: data
-      })
+      }),
+      invalidatesTags: ['GameRounds']
     }),
     getGameRounds: builder.query<GameRound[], number | void>({
-      query: (count = 10) => `api/game-rounds?count=${count}`
+      query: (count = 10) => `api/gamerounds?count=${count}`,
+      providesTags: ['GameRounds']
     }),
     deleteAllRounds: builder.mutation<void, void>({
       query: () => ({
-        url: 'api/game-rounds',
+        url: 'api/gamerounds',
         method: 'DELETE'
-      })
+      }),
+      invalidatesTags: ['GameRounds']
     })
   })
 });

@@ -19,7 +19,7 @@ public class GameRoundsController(IGameRoundService gameRoundService) : Controll
     /// A task representing the asynchronous operation. The task result contains
     /// a list of <see cref="GameRoundResponse"/> representing the recent rounds.
     /// </returns>
-    [HttpGet("game-rounds")]
+    [HttpGet]
     [ActionName(nameof(GetLatestRoundsAsync))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<GameRoundResponse>))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
