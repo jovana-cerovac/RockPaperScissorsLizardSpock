@@ -1,9 +1,10 @@
-import { GameConsole } from './components/game/GameConsole';
-import { Scoreboard } from './components/scoreboard/Scoreboard';
+import { Header, GameConsole, Scoreboard } from './components';
+import './App.css';
 
 function App() {
   return (
     <div>
+      <Header />
       <GameConsole />
       <Scoreboard />
     </div>

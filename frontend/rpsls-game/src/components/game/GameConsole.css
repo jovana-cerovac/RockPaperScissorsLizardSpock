@@ -3,10 +3,11 @@
   max-width: 800px;
   margin: 2rem auto;
   text-align: center;
-  background: #f7f7f7;
+  background: #1e1e2f;
   padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0 0 10px #ccc;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+  color: #f1f1f1;
 }
 
 .choices {
@@ -17,20 +18,23 @@
 }
 
 .choice-btn {
-  background: #007bff;
+  background: #464879;
   color: white;
   border: none;
   padding: 0.75rem 1.25rem;
   margin: 0.25rem;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
-  transition: background 0.3s ease;
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
   min-width: 90px;
 }
 
 .choice-btn:hover:not(:disabled) {
-  background: #0056b3;
+  background: #2980b9;
+  transform: scale(1.05);
 }
 
 .choice-btn:disabled {
@@ -39,7 +43,7 @@
 }
 
 .error {
-  color: #d9534f;
+  color: #ff6b6b;
   font-weight: bold;
 }
 
@@ -48,7 +52,7 @@
   width: 80px;
   height: 20px;
   border-radius: 4px;
-  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 37%, #e0e0e0 63%);
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 37%, #2a2a2a 63%);
   background-size: 400% 100%;
   animation: shimmer 1.4s ease infinite;
   margin: 1rem 0;
@@ -64,24 +68,25 @@
 }
 
 .result {
-  background: #e7e7e7;
+  background: #29293d;
   padding: 1rem;
-  border-radius: 5px;
+  border-radius: 8px;
   font-weight: bold;
   margin-top: 1rem;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.05);
 }
 
 .result-win {
-  color: #28a745;
-  box-shadow: 0 0 5px #28a745;
+  color: #4caf50;
+  box-shadow: 0 0 5px #4caf50;
 }
 
 .result-lose {
-  color: #dc3545;
-  box-shadow: 0 0 5px #dc3545;
+  color: #f44336;
+  box-shadow: 0 0 5px #f44336;
 }
 
 .result-tie {
-  color: #6c757d;
-  box-shadow: 0 0 5px #6c757d;
+  color: #ffc107;
+  box-shadow: 0 0 5px #ffc107;
 }

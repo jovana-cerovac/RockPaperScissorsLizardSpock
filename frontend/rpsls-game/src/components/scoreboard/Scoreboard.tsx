@@ -12,7 +12,7 @@ export const Scoreboard = () => {
 
   return (
     <div className="scoreboard-container">
-      <h3>Latest 10 Game Rounds</h3>
+      <h3>Scoreboard</h3>
 
       {isLoading && <p>Loading rounds...</p>}
 
@@ -33,15 +33,23 @@ export const Scoreboard = () => {
           </thead>
           <tbody>
             {!isLoading &&
-              scoreboardRows.map((round: ScoreboardRow, index: number) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{round.playerChoice}</td>
-                  <td>{round.computerChoice}</td>
-                  <td>{round.outcomeMessage}</td>
-                  <td>{round.playedAt.toLocaleString()}</td>
-                </tr>
-              ))}
+              scoreboardRows.map((round: ScoreboardRow, index: number) => {
+                let resultClass = '';
+                if (round.outcomeMessage === 'WIN') resultClass = 'result-win';
+                else if (round.outcomeMessage === 'LOSE')
+                  resultClass = 'result-lose';
+                else resultClass = 'result-tie';
+
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{round.playerChoice}</td>
+                    <td>{round.computerChoice}</td>
+                    <td className={resultClass}>{round.outcomeMessage}</td>
+                    <td>{round.playedAt.toLocaleString()}</td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       )}
