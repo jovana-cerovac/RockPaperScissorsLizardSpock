@@ -1,66 +1,21 @@
-import { useDeleteAllGameRounds, useGetScoreboardRows } from '../../hooks';
-import { ScoreboardRow } from '../../models';
+import { useGetScoreboardRows } from '../../hooks';
+import { ErrorMessage, Loader, ScoreboardTable, ResetButton } from '..';
 import './Scoreboard.css';
 
 export const Scoreboard = () => {
   const { scoreboardRows, isLoading } = useGetScoreboardRows();
-  const { deleteAllGameRounds } = useDeleteAllGameRounds();
-
-  const handleReset = async () => {
-    deleteAllGameRounds();
-  };
 
   return (
     <div className="scoreboard-container">
       <h3>Scoreboard</h3>
-
-      {isLoading && <p>Loading rounds...</p>}
-
+      {isLoading && <Loader message="Loading rounds..." />}
       {!isLoading && scoreboardRows.length === 0 && (
-        <p>No rounds played yet.</p>
+        <ErrorMessage message="No rounds played yet." />
       )}
-
       {!isLoading && scoreboardRows.length > 0 && (
-        <table className="scoreboard-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Player Choice</th>
-              <th>Computer Choice</th>
-              <th>Result</th>
-              <th>Played At</th>
-            </tr>
-          </thead>
-          <tbody>
-            {!isLoading &&
-              scoreboardRows.map((round: ScoreboardRow, index: number) => {
-                let resultClass = '';
-                if (round.outcomeMessage === 'WIN') resultClass = 'result-win';
-                else if (round.outcomeMessage === 'LOSE')
-                  resultClass = 'result-lose';
-                else resultClass = 'result-tie';
-
-                return (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{round.playerChoice}</td>
-                    <td>{round.computerChoice}</td>
-                    <td className={resultClass}>{round.outcomeMessage}</td>
-                    <td>{round.playedAt.toLocaleString()}</td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
+        <ScoreboardTable scoreboardRows={scoreboardRows} />
       )}
-
-      <button
-        className="reset-btn"
-        onClick={handleReset}
-        disabled={isLoading || scoreboardRows.length === 0}
-      >
-        Reset scoreboard
-      </button>
+      <ResetButton disabled={isLoading || scoreboardRows.length === 0} />
     </div>
   );
 };

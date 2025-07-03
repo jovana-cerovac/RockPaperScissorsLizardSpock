@@ -1,4 +1,4 @@
-import './GameConsole.css';
+import './Common.css';
 
 interface ErrorMessageProps {
   message: string;

@@ -5,8 +5,8 @@ import {
   GameResults,
   RandomChoicePicker,
   GameChoices,
-  ResultsLoader,
-  ErrorMessage
+  ErrorMessage,
+  Loader
 } from '..';
 import './GameConsole.css';
 
@@ -49,7 +49,7 @@ export const GameConsole = () => {
         isShuffling={isShuffling}
         setIsShuffling={setIsShuffling}
       />
-      {isLoading && <ResultsLoader />}
+      {isLoading && <Loader message={'Loading game results'} />}
       {error && <ErrorMessage message={error} />}
       {result && !isLoading && !isShuffling && (
         <GameResults result={result} choices={choices} />
