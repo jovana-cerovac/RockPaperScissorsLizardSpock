@@ -8,7 +8,7 @@ A full-stack implementation of the classic game [**Rock Paper Scissors Lizard Sp
 
 This solution is composed of three main components:
 
-- [**Frontend**](frontend/rpsls-game/Readme.md) – A modern React 19 application that provides an interactive UI for users to play the game.
+- [**Frontend**](frontend/rpsls-game/README.md) – A modern React 19 application that provides an interactive UI for users to play the game.
 - [**GameAPI**](backend/GameAPI/Readme.md) – A .NET 8 Web API responsible for handling game sessions, evaluating results, and maintaining the scoreboard.
 - [**ChoiceAPI**](backend/ChoiceAPI/Readme.md) – A .NET 8 Web API responsible for managing and retrieving game choices.
 
