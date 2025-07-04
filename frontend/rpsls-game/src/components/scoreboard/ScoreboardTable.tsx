@@ -11,7 +11,7 @@ export const ScoreboardTable = ({ scoreboardRows }: ScoreboardTableProps) => {
       <thead>
         <tr>
           <th>#</th>
-          <th>Player Choice</th>
+          <th>Your Choice</th>
           <th>Computer Choice</th>
           <th>Result</th>
           <th>Played At</th>
