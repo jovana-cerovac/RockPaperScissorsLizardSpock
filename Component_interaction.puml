@@ -1,0 +1,30 @@
+@startuml Component Interaction
+skinparam rectangle {
+    BackgroundColor #e9f7fc
+    BorderColor #2986cc
+    FontColor #093145
+}
+skinparam actor {
+    BackgroundColor #ffe599
+    BorderColor #b8860b
+    FontColor #b8860b
+}
+skinparam ArrowColor #005792
+
+actor Player
+
+rectangle "Front-end App" as FrontEndApp
+rectangle "ChoiceAPI" as ChoiceAPI
+rectangle "GameAPI" as GameAPI
+rectangle "Random Number API\n(https://codechallenge.boohma.com/)" as RandomNumberAPI
+
+Player -right-> FrontEndApp : interacts
+
+FrontEndApp -down-> ChoiceAPI
+FrontEndApp -down-> GameAPI 
+
+GameAPI -left-> ChoiceAPI
+
+ChoiceAPI -down-> RandomNumberAPI
+
+@enduml
